@@ -1,6 +1,10 @@
-package project1.ver03;
+package project1.ver05;
 
 import java.util.Scanner;
+
+import project1.ver05.PhoneInfo;
+
+import project1.ver05.SubMenuItem;
 
 
 public class PhoneBookManager 
@@ -34,25 +38,43 @@ public class PhoneBookManager
 //	입력 : 
 	public void dataInput() {
 		Scanner scanner = new Scanner(System.in);
-		String name, phoneNumber, birthday;
+		String name, phoneNumber, major, companyName;
+		int grade;
 		
 		System.out.println("데이터 입력을 시작합니다.");
-		System.out.print("이름:"); 
-		name = scanner.nextLine();
-		System.out.print("전화번호:"); 
-		phoneNumber = scanner.nextLine();
-		System.out.print("생년월일:"); 
-		birthday = scanner.nextLine();
-		
-		PhoneInfo pi1 = new PhoneInfo(name, phoneNumber, birthday);
+		System.out.println("1.일반, 2,동창, 3.회사");
+		int choice = scanner.nextInt();
+		scanner.nextLine();
+		if(choice==SubMenuItem.BASIC) {
+		System.out.print("이름:"); name = scanner.nextLine();
+		System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
+		PhoneInfo pi1 = new PhoneInfo(name, phoneNumber);
 		myFriends[numOfFriends++] = pi1;
+		}
+		
+		if(choice==SubMenuItem.ALUMNI) { //학교친구 입력 후 추가 
+			System.out.print("이름:"); name = scanner.nextLine();
+			System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
+			System.out.print("전공:"); major = scanner.nextLine();
+			System.out.print("학년:"); grade = scanner.nextInt();
+			
+			PhoneSchoolInfo student = new PhoneSchoolInfo(name, phoneNumber, major, grade);
+			myFriends[numOfFriends++] = student;
+		}
+		else if(choice==SubMenuItem.COMPANY) {  //회사동료 입력 후 추가
+			System.out.print("이름:"); name = scanner.nextLine();
+			System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
+			System.out.print("회사:"); companyName = scanner.nextLine();
+			myFriends[numOfFriends++] =
+					new PhoneCompanyInfo(name, phoneNumber, companyName);
+		}
 		System.out.println("데이터 입력이 완료되었습니다.");
 		System.out.println();
 	}
 //	검색 
 	public void dataSearch() {
 		
-		boolean isFind = false; //검색된 정보가 있는지 확인용.
+		boolean isFind = false;
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("데이터 검색을 시작합니다.");
 		System.out.println("검색할 이름을 입력하세요.");
@@ -100,6 +122,8 @@ public class PhoneBookManager
 			}
 			System.out.println("==데이터 삭제가 완료되었습니다.==");
 		}
+		
+		
 	}
 //	주소록전체출력 
 	public void dataAllShow() {

@@ -50,7 +50,7 @@ public class PhoneBookManager
 		myFriends[numOfFriends++] = pi1;
 		}
 		
-		if(choice==2) { //학교친구 입력 후 추가 
+		else if(choice==2) { //학교친구 입력 후 추가 
 			System.out.print("이름:"); name = scanner.nextLine();
 			System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
 			System.out.print("전공:"); major = scanner.nextLine();
