@@ -1,10 +1,11 @@
-package project1.ver06;
+package project1.ver07;
 
 public class PhoneSchoolInfo extends PhoneInfo
 {
-	String major, grade;
+	String major;
+	int grade;
 	
-	public PhoneSchoolInfo(String name, String phoneNumber, String major, String grade)
+	public PhoneSchoolInfo(String name, String phoneNumber, String major, int grade)
 	{
 		super(name, phoneNumber);
 		this.major = major;

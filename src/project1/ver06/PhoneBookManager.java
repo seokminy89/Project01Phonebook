@@ -1,5 +1,6 @@
 package project1.ver06;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import project1.ver06.PhoneInfo;
@@ -38,36 +39,44 @@ public class PhoneBookManager
 //	입력 : 
 	public void dataInput() {
 		Scanner scanner = new Scanner(System.in);
-		String name, phoneNumber, major, companyName;
-		int grade;
+		String name, phoneNumber, major, companyName, grade;
 		
-		System.out.println("데이터 입력을 시작합니다.");
-		System.out.println("1.일반, 2,동창, 3.회사");
-		int choice = scanner.nextInt();
-		scanner.nextLine();
-		if(choice==SubMenuItem.BASIC) {
-		System.out.print("이름:"); name = scanner.nextLine();
-		System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
-		PhoneInfo pi1 = new PhoneInfo(name, phoneNumber);
-		myFriends[numOfFriends++] = pi1;
-		}
-		
-		else if(choice==SubMenuItem.ALUMNI) { //학교친구 입력 후 추가 
-			System.out.print("이름:"); name = scanner.nextLine();
-			System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
-			System.out.print("전공:"); major = scanner.nextLine();
-			System.out.print("학년:"); grade = scanner.nextInt();
+		try {
 			
-			PhoneSchoolInfo student = new PhoneSchoolInfo(name, phoneNumber, major, grade);
-			myFriends[numOfFriends++] = student;
+			System.out.println("데이터 입력을 시작합니다.");
+			System.out.println("1.일반, 2,동창, 3.회사");
+			int choice = scanner.nextInt();
+			scanner.nextLine();
+			
+			if(choice==SubMenuItem.BASIC) {
+				System.out.print("이름:"); name = scanner.nextLine();
+				System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
+				PhoneInfo pi1 = new PhoneInfo(name, phoneNumber);
+				myFriends[numOfFriends++] = pi1;
+			}
+			
+			else if(choice==SubMenuItem.ALUMNI) { //학교친구 입력 후 추가 
+				System.out.print("이름:"); name = scanner.nextLine();
+				System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
+				System.out.print("전공:"); major = scanner.nextLine();
+				System.out.print("학년:"); grade = scanner.nextLine();
+				
+				PhoneSchoolInfo student = new PhoneSchoolInfo(name, phoneNumber, major, grade);
+				myFriends[numOfFriends++] = student;
+			}
+			else if(choice==SubMenuItem.COMPANY) {  //회사동료 입력 후 추가
+				System.out.print("이름:"); name = scanner.nextLine();
+				System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
+				System.out.print("회사:"); companyName = scanner.nextLine();
+				myFriends[numOfFriends++] =
+						new PhoneCompanyInfo(name, phoneNumber, companyName);
+			}
+			
+		}catch(InputMismatchException e) {
+			System.out.println("숫자를입력하세요");
+			e.printStackTrace();
 		}
-		else if(choice==SubMenuItem.COMPANY) {  //회사동료 입력 후 추가
-			System.out.print("이름:"); name = scanner.nextLine();
-			System.out.print("전화번호:"); phoneNumber = scanner.nextLine();
-			System.out.print("회사:"); companyName = scanner.nextLine();
-			myFriends[numOfFriends++] =
-					new PhoneCompanyInfo(name, phoneNumber, companyName);
-		}
+		
 		System.out.println("데이터 입력이 완료되었습니다.");
 		System.out.println();
 	}
@@ -85,8 +94,8 @@ public class PhoneBookManager
 			//내가 입력한 searchName과 배열안의 name을 비교하기.
 			if(searchName.compareTo(myFriends[i].name)==0) {
 				myFriends[i].showPhoneInfo();
-			System.out.println("데이터 검색이 완료되었습니다.");
-			isFind = true;
+				System.out.println("데이터 검색이 완료되었습니다.");
+				isFind = true;
 			}
 			
 		}
