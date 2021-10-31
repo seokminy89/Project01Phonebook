@@ -18,6 +18,8 @@ public class PhoneInfo
 		System.out.println("이름:"+name);
 		System.out.println("전화번호:"+phoneNumber);
 	}
+	
+	//객체의 중복체크를 위해 해시코드와 이퀄스 메소드를 오버라이딩 해줌.
 	@Override
 	public int hashCode()
 	{
@@ -26,7 +28,7 @@ public class PhoneInfo
 	@Override
 	public boolean equals(Object obj)
 	{
-		 
+		//매개변수를 Object로 받으므로 다운캐스팅 필요함.
 		PhoneInfo other = (PhoneInfo) obj;
 		if(this.name.equals(other.name)) {
 			return true;
